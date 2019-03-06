@@ -1,0 +1,43 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: ssb-server
+  name: ssb-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ssb-server
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: ssb-server
+    spec:
+      containers:
+      - name: ssb-server
+        envFrom:
+        - configMapRef:
+            name: ssb-server
+        image: ubuntu:18.04
+        command:
+        - bash
+        - -c
+        - "echo \"${START_SCRIPT}\" > /usr/local/bin/start-container ; chmod a+rx /usr/local/bin/start-container ; exec /usr/local/bin/start-container"
+
+---
+apiVersion: v1
+data:
+  START_SCRIPT: |
+    #!/usr/bin/env bash
+    apt update
+    apt install -y nodejs npm
+    npm install -g npm
+    npm install -g ssb-server
+    exec bash -c "while true ; do timeout 1h ssb-server start ; done"
+kind: ConfigMap
+metadata:
+  name: ssb-server
