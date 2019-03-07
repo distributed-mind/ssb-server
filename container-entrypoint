@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ ! -f /root/.ssb/config ]; then
+  mkdir -p /data
+  ln -s /data /root/.ssb
+  echo "${SSB_CONFIG}" | base64 -d > /root/.ssb/config
+fi
+
+exec "$@"

@@ -1,0 +1,24 @@
+{
+    "connections": {
+      "incoming": {
+        "net": [
+          {
+            "scope": "public",
+            "external": [
+              "example.com"
+            ],
+            "transform": "shs",
+            "port": 8008,
+            "host": "0.0.0.0"
+          }
+        ]
+      },
+      "outgoing": {
+        "net": [
+          {
+            "transform": "shs"
+          }
+        ]
+      }
+    }
+}
