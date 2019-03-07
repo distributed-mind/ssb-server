@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 
 RUN apt update &&\
     apt dist-upgrade -yq &&\
-    apt install -y nodejs npm &&\
+    apt install -y nodejs npm build-essential python python-minimal &&\
     npm install -g npm &&\
     npm install -g ssb-server
 
