@@ -31,6 +31,8 @@ spec:
         volumeMounts:
         - mountPath: /ssb
           name: ssb-data
+      strategy:
+        type: Recreate
       volumes:
       - name: ssb-data
         emptyDir: {}
