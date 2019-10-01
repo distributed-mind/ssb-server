@@ -17,10 +17,20 @@ spec:
     spec:
       containers:
       - name: ssb-server
-        envFrom:
-        - configMapRef:
-            name: ssb-server
         image: distributedmind/ssb-server:latest
+        resources:
+          requests:
+            cpu: 500m
+            memory: 512Mi
+          limits:
+            cpu: 1000m
+            memory: 1024Mi
+        volumeMounts:
+        - mountPath: /ssb
+          name: ssb-data
+      volumes:
+      - name: ssb-data
+        emptyDir: {}
 
 ---
 apiVersion: v1

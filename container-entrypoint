@@ -1,9 +1,39 @@
 #!/usr/bin/env bash
 
-if [ ! -f /root/.ssb/config ]; then
-  mkdir -p /data
-  ln -s /data /root/.ssb
-  echo "${SSB_CONFIG}" | base64 -d > /root/.ssb/config
+if [[ ! -f /ssb/.ssb/config ]]; then
+  echo "Missing SSB config file, generating..."
+  if [[ -z "${DOMAIN}" ]]; then
+    echo "Please provide a \$DOMAIN variable" 1>&2
+    exit 1
+  fi
+  mkdir -p /ssb/.ssb &&\
+    envsubst << EOF > /ssb/.ssb/config &&\
+    echo "Done!" || (echo "Fail" 1>&2 ; exit 2)
+{
+    "connections": {
+      "incoming": {
+        "net": [
+          {
+            "scope": "public",
+            "external": [
+              "${DOMAIN}"
+            ],
+            "transform": "shs",
+            "port": 8008,
+            "host": "0.0.0.0"
+          }
+        ]
+      },
+      "outgoing": {
+        "net": [
+          {
+            "transform": "shs"
+          }
+        ]
+      }
+    }
+}
+EOF
 fi
 
 exec "$@"

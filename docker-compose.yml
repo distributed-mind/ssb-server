@@ -1,0 +1,11 @@
+version: '3'
+services:
+  ssb-server:
+    restart: always
+    build:
+      context: ./
+      dockerfile: ./ssb-server.Dockerfile
+    environment:
+    - DOMAIN=example.org
+    ports:
+    - "8008:8008"
