@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker build -t ssb-server -f ./ssb-server.Dockerfile ./
+docker build -t distributedmind/ssb-server:latest -f ./ssb-server.Dockerfile ./

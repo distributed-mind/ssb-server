@@ -18,6 +18,9 @@ spec:
       containers:
       - name: ssb-server
         image: distributedmind/ssb-server:latest
+        env:
+        - name: DOMAIN
+          value: "example.org"
         resources:
           requests:
             cpu: 500m
