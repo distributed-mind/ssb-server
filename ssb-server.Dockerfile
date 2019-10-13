@@ -5,7 +5,8 @@ apt dist-upgrade -yq &&\
 apt install -y \
   nodejs \
   npm \
-  gettext-base &&\
+  gettext-base \
+  jq &&\
 npm install -g npm &&\
 npm install -g ssb-server &&\
 rm -rf /var/lib/apt/lists/*
